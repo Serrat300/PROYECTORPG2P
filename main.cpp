@@ -1,41 +1,24 @@
 #include <iostream>
 #include "Player/Player.h"
 #include "Enemy/Enemy.h"
+#include "Combat/Combat.h"
 
 int main() {
-    Player *player = new Player("Link", 100, 8, 3, 10);
-    Enemy *enemy = new Enemy("Bokoblin", 50, 5, 2, 5, 10);
+    Player *player = new Player("Victor", 40, 10, 4, 3);
+    Enemy *enemy = new Enemy("Goblin", 15, 6, 2, 5, 10);
+    Enemy *enemy2 = new Enemy("Orc", 15, 6, 2, 5, 10);
 
-    cout << player->toString() << endl;
-    cout << enemy->toString() << endl;
+    vector<Character*> participants;
 
-    cout << "=====================" << endl;
+    participants.push_back(player);
+    participants.push_back(enemy);
+    participants.push_back(enemy2);
 
-    int round=1;
-
-    while(player->getHealth() > 0 && enemy->getHealth() > 0){
-
-        cout << "Round " << round++ << endl;
-
-        player->doAttack(enemy);
-        cout << player->getName() << ": Con su espada logro lastimarlo " << endl;
-        cout << "Salud de " << enemy->getName() << ": " << enemy->getHealth() << endl;
-        cout << "Defensa de " << enemy->getName() << ": " << enemy->getDefense() << endl;
-
-        enemy->doAttack(player);
-        cout << enemy->getName() << ": Con su machete logro lastimarlo " << endl;
-        cout << "Salud de " << player->getName() << ": " << player->getHealth() << endl;
-        cout << "Defensa de " << player->getName() << ": " << player->getDefense() << endl;
-
-        cout << "=====================" << endl;
-
-        if(player->getHealth() <= 0){
-            cout << "Game over " << endl;}
-        else if(enemy->getHealth() <= 0){
-            cout << "You Won!! Wopeeee " << endl;}
-    }
+    Combat *combat = new Combat(participants);
+    combat->doCombat();
 
     delete player;
     delete enemy;
+    delete combat;
     return 0;
 }
