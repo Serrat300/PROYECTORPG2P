@@ -28,6 +28,10 @@ int Character::getDefense() {
     return defense;
 }
 
+void Character::defend() {
+    defense += static_cast<int>(0.20 * defense);
+}
+
 int Character::getSpeed() {
     return speed;
 }
@@ -39,6 +43,7 @@ string Character::toString() {
 bool Character::getIsPlayer() {
     return isPlayer;
 }
+
 
 bool Character::flee(Character*target) {
     if(this->speed > target->speed)

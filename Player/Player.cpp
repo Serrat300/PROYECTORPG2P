@@ -18,12 +18,11 @@ void Player::doAttack(Character *target) {
 
 void Player::takeDamage(int damage) {
     int trueDamage = damage - defense;
-
     health-= trueDamage;
 
     cout << name << " took " << trueDamage << " damage!" << endl;
+        }
 
-}
 
 void Player::levelUp() {
     level++;

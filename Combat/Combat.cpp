@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#include <algorithm>
 
 using namespace std;
 
@@ -72,13 +73,14 @@ Character* Combat::getTarget(Character* attacker) {
 }
 
 void Combat::doCombat() {
+    char move;
     cout<< "Inicio del combate" << endl;
     combatPrep();
     while(participants.size() > 1){
         vector<Character*>::iterator it = participants.begin();
         while(it != participants.end()) {
-            Character* target = nullptr;
-            if((*it)->getIsPlayer()) {
+            Character *target = nullptr;
+            if ((*it)->getIsPlayer()) {
                 // TODO: Tarea Jugador debe poder elegir entre atacar y defender
                 target = ((Player *) *it)->selectTarget(enemies);
             } else {
@@ -86,6 +88,23 @@ void Combat::doCombat() {
                 target = ((Enemy *) *it)->selectTarget(partyMembers);
             }
             (*it)->doAttack(target);
+            cout << "Choose your move: Defend (A) or Attack (B)" << endl;
+            cin >> move;
+            switch (move) {
+                case 'A':
+                case 'a':
+                    (*it)->doAttack(target);
+                    cout << "Salud de " << target->getName() << ": " << target->getHealth() << endl;
+                    cout << "Defensa de " << target->getName() << ": " << target->getDefense() << endl;
+                    break;
+                case 'B':
+                case 'b':
+                    (*it)->defend();
+                    cout << "Salud de " << target->getName() << ": " << target->getHealth() << endl;
+                    cout << "Defensa de " << target->getName() << ": " << target->getDefense() << endl;
+                    break;
+            }
+
             if(target->getHealth() <= 0){
                 it = participants.erase(remove(participants.begin(), participants.end(), target), participants.end());
                 if(target->getIsPlayer()){
