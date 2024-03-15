@@ -21,12 +21,12 @@ void Enemy::doAttack(Character *target) {
 void Enemy::takeDamage(int damage) {
     int trueDamage = damage - defense;
     health-= trueDamage;
+
     cout << name << " took " << trueDamage << " damage!" << endl;
     if(health <= 0) {
         cout << name << " has been defeated!" << endl;
     }
 }
-
 
 int Enemy::getExperience() {
     return experience;

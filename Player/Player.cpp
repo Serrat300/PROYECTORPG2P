@@ -28,6 +28,7 @@ void Player::takeDamage(int damage) {
     }
 }
 
+
 void Player::levelUp() {
     level++;
 }
@@ -54,8 +55,10 @@ Character* Player::selectTarget(vector<Enemy*> possibleTargets) {
 
 Action Player::takeAction(vector<Enemy*> enemies) {
     int action = 0;
+    int defending = 0;
     cout << "Select an action: " << endl
-    << "1. Attack" << endl;
+         << "1. Attack" << endl;
+    cout << "2. Defend" << endl;
 
     //TODO: Validate input
     cin >> action;
@@ -71,9 +74,19 @@ Action Player::takeAction(vector<Enemy*> enemies) {
             };
             currentAction.speed = getSpeed();
             break;
+
+        case 2:
+            target = selectTarget(enemies);
+            currentAction.target = target;
+            currentAction.action = [this, target](){
+                doDefense();
+            };
+            currentAction.speed = getSpeed();
+            break;
         default:
             cout << "Invalid action" << endl;
             break;
+
     }
 
     return currentAction;

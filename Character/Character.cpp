@@ -3,6 +3,8 @@
 //
 
 #include "Character.h"
+#include<iostream>
+using namespace std;
 Character::Character(string _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer) {
     name = _name;
     health = _health;
@@ -24,16 +26,14 @@ int Character::getAttack() {
     return attack;
 }
 
-int Character::getDefense() {
-    return defense;
-}
-
-void Character::defend() {
-    defense += static_cast<int>(0.20 * defense);
-}
-
 int Character::getSpeed() {
     return speed;
+}
+
+void Character::doDefense() {
+    int increaseAmount = defense * 0.20;
+    defense += increaseAmount;
+    cout << name << "'s defense increased by 20%!" << endl;
 }
 
 string Character::toString() {
@@ -43,7 +43,6 @@ string Character::toString() {
 bool Character::getIsPlayer() {
     return isPlayer;
 }
-
 
 bool Character::flee(Character*target) {
     if(this->speed > target->speed)

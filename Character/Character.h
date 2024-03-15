@@ -18,18 +18,17 @@ protected:
     bool isPlayer;
 public:
     Character(string _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer);
+
     virtual void doAttack(Character *target) = 0;
     virtual void takeDamage(int damage) = 0;
-    void defend();
+    void doDefense();
     //TODO: Implementar metodo de defensa
     //Incrementar la defensa un 20% solo por el turno actual
-
 
     bool flee(Character* target);
     string getName();
     int getHealth();
     int getAttack();
-    int getDefense();
     bool getIsPlayer();
     int getSpeed();
     string toString();
