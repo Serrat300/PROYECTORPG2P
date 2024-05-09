@@ -50,11 +50,11 @@ void Combat::combatPrep() {
     sort(participants.begin(), participants.end(), compareSpeed);
 }
 
-string Combat::toString() {
-    string result = "";
+char Combat::static_cast<char>() {
+    char result = "";
     vector<Character*>::iterator it;
     for(it = participants.begin(); it != participants.end(); it++){
-        result += (*it)->toString() + "\n";
+        result += (*it)->static_cast<char>() + "\n";
     }
     cout<<"===================="<<endl;
     return result;
