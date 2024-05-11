@@ -4,12 +4,14 @@
 
 #include "Player.h"
 #include <iostream>
+#include <cstring>
+#include <fstream>
 
 using namespace std;
 
-Player::Player(const char _name[], int _health, int _attack, int _defense, int _speed) : Character(_name, _health, _attack, _defense, _speed, true) {
+Player::Player(const char _name[], int _health, int _attack, int _defense, int _speed, int _experience) : Character(_name, _health, _attack, _defense, _speed, true, _experience) {
     level = 1;
-    experience = 0;
+    //experience = 0;
 }
 
 void Player::doAttack(Character *target) {
@@ -28,16 +30,73 @@ void Player::takeDamage(int damage) {
     }
 }
 
+void Player::saveToFile() {
+    ofstream file("player.txt");
+    if (file.is_open()) {
+        file << name << endl;
+        file << health << endl;
+        file << attack << endl;
+        file << defense << endl;
+        file << speed << endl;
+        file << level << endl;
+        file.close();
+        cout << "Game saved" << endl;
+    } else {
+        cerr << "Unable to save game" << endl;
+    }
+}
+
+void Player::loadFromFile() {
+    ifstream file("player.txt");
+    if (file.is_open()) {
+        file.getline(name, 50);
+        file >> health >> attack >> defense >> speed;
+        file.close();
+        cout << "Game loaded" << endl;
+    } else {
+        cerr << "Unable to load game" << endl;
+    }
+}
+
+void Player::displayStats() {
+    cout << "Name: " << name << endl;
+    cout << "Health: " << health << endl;
+    cout << "Attack: " << attack << endl;
+    cout << "Defense: " << defense << endl;
+    cout << "Speed: " << speed << endl;
+    cout << "Level: " << level << endl;
+}
 
 void Player::levelUp() {
     level++;
+    //int experiencia2 = 10;
+    //experience -= experiencia2;
+
+    health += 5;
+    attack += 5;
+    defense += 5;
+    speed += 5;
+
+    cout << name << " ha subido de nivel " << level << "!" << endl;
+    cout << "Nivel de experiencia: " << experience << endl;
+
+   // if (experience >= experiencia2){
+   //     cout << "Tienes experiencia para subir de nivel" <<endl;
+   //     levelUp();
+    //}
+
 }
 
 void Player::gainExperience(int exp) {
+    //int experiencia2 = 10;
+    //experience = getExperience();
+    //cout << "experience" << getExperience() << endl;
     experience += exp;
-    if (experience >= 100) {
+    cout << "experience + enemy " << experience << endl;
+    while (experience >= 100) {
         levelUp();
-        experience = 100-experience;
+        experience -= 100;
+        cout << "experience after level up " << experience << endl;
     }
 }
 
@@ -59,6 +118,7 @@ Action Player::takeAction(vector<Enemy*> enemies) {
     cout << "Select an action: " << endl
          << "1. Attack" << endl;
     cout << "2. Defend" << endl;
+    cout << "3. Save file " << endl;
 
     //TODO: Validate input
     cin >> action;
@@ -85,6 +145,11 @@ Action Player::takeAction(vector<Enemy*> enemies) {
             break;
         default:
             cout << "Invalid action" << endl;
+            break;
+
+        case 3:
+            saveToFile();
+            return takeAction(enemies);
             break;
 
     }

@@ -16,11 +16,13 @@ protected:
     int defense;
     int speed;
     bool isPlayer;
+    int experience;
 public:
-    Character(const char _name[], int _health, int _attack, int _defense, int _speed, bool _isPlayer);
+    Character(const char _name[], int _health, int _attack, int _defense, int _speed, bool _isPlayer, int _experience);
 
     virtual void doAttack(Character *target) = 0;
     virtual void takeDamage(int damage) = 0;
+    virtual void gainExperience(int exp) = 0;
     void doDefense();
     //TODO: Implementar metodo de defensa
     //Incrementar la defensa un 20% solo por el turno actual
@@ -32,6 +34,7 @@ public:
     bool getIsPlayer();
     int getSpeed();
     string toString();
+    int getExperience();
 };
 
 

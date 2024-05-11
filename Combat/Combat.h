@@ -18,7 +18,7 @@ private:
     priority_queue<Action> actionQueue;
     void registerActions(vector<Character*>::iterator participant);
     void executeActions(vector<Character*>::iterator participant);
-    void checkParticipantStatus(Character* participant);
+    bool checkParticipantStatus(Character* participant);
 
     void combatPrep();
     Character* getTarget(Character* attacker);
@@ -28,7 +28,9 @@ public:
     Combat();
     void doCombat();
     void addParticipant(Character *participant);
-    char tochar();
+    string toString();
+
+    void assignNewExperience(Character *enemy, Character *player);
 };
 
 

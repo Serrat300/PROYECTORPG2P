@@ -10,7 +10,7 @@
 using namespace std;
 using namespace combat_utils;
 
-Enemy::Enemy(const char _name[], int _health, int _attack, int _defense, int _speed, int _experience) : Character(_name, _health, _attack, _defense, _speed, false) {
+Enemy::Enemy(const char _name[], int _health, int _attack, int _defense, int _speed, int _experience) : Character(_name, _health, _attack, _defense, _speed, false, _experience) {
     experience = _experience;
 }
 
@@ -57,3 +57,11 @@ Action Enemy::takeAction(vector<Player*> partyMembers) {
 
     return currentAction;
 }
+
+void Enemy::gainExperience(int exp) {
+
+}
+
+//void gainExperience(int exp){
+
+//}

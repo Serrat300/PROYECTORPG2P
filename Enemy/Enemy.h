@@ -22,7 +22,7 @@ public:
     void takeDamage(int damage) override;
     Character* selectTarget(vector<Player*> possibleTargets);
     Action takeAction(vector<Player*> partyMembers);
-
+    void gainExperience(int exp) override;
     int getExperience();
 };
 

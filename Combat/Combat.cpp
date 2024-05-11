@@ -50,11 +50,11 @@ void Combat::combatPrep() {
     sort(participants.begin(), participants.end(), compareSpeed);
 }
 
-char Combat::static_cast<char>() {
-    char result = "";
+string Combat::toString() {
+    string result = "";
     vector<Character*>::iterator it;
     for(it = participants.begin(); it != participants.end(); it++){
-        result += (*it)->static_cast<char>() + "\n";
+        result += (*it)->toString() + "\n";
     }
     cout<<"===================="<<endl;
     return result;
@@ -98,14 +98,22 @@ void Combat::executeActions(vector<Character*>::iterator participant) {
         Action currentAction = actionQueue.top();
         currentAction.action();
         actionQueue.pop();
+        bool enemyIsDead;
 
         //Check if there are any dead characters
+        //checkParticipantStatus(*participant);
+        //checkParticipantStatus(currentAction.target);
         checkParticipantStatus(*participant);
-        checkParticipantStatus(currentAction.target);
+        enemyIsDead = checkParticipantStatus(currentAction.target);
+        if (!enemyIsDead){
+            assignNewExperience(currentAction.target,*partyMembers.begin());
+
+
+        }
     }
 }
 
-void Combat::checkParticipantStatus(Character *participant) {
+bool Combat::checkParticipantStatus(Character *participant) {
     if(participant->getHealth() <= 0) {
         if(participant->getIsPlayer()) {
             partyMembers.erase(remove(partyMembers.begin(), partyMembers.end(), participant), partyMembers.end());
@@ -113,7 +121,11 @@ void Combat::checkParticipantStatus(Character *participant) {
             enemies.erase(remove(enemies.begin(), enemies.end(), participant), enemies.end());
         }
         participants.erase(remove(participants.begin(), participants.end(), participant), participants.end());
+        //return false if character is dead
+        return false;
     }
+    //return true if character is still alive
+    return true;
 }
 
 void Combat::registerActions(vector<Character*>::iterator participantIterator) {
@@ -130,4 +142,11 @@ void Combat::registerActions(vector<Character*>::iterator participantIterator) {
 
         participantIterator++;
     }
+}
+
+void Combat::assignNewExperience(Character *enemy, Character *player){
+    cout << "Previous Player experience " << player->getExperience() <<endl;
+    cout << "Defeated Enemy experience " << enemy->getExperience() <<endl;
+    player->gainExperience(enemy->getExperience());
+    cout << "Player experience after gain " << player->getExperience() <<endl;
 }

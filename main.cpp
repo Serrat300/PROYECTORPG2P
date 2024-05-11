@@ -5,9 +5,11 @@
 
 
 int main() {
-    Player *player = new Player("Victor", 5, 10, 4, 3);
-    Enemy *enemy = new Enemy("Goblin", 15, 6, 2, 5, 10);
-    Enemy *enemy2 = new Enemy("Orc", 15, 6, 2, 5, 10);
+    Player *player = new Player("Victor", 5, 10, 10, 3, 99);
+    Enemy *enemy = new Enemy("Goblin", 15, 6, 2, 5, 22);
+    Enemy *enemy2 = new Enemy("Orc", 15, 6, 2, 5, 300);
+
+
 
     vector<Character*> participants;
 

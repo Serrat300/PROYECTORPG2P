@@ -7,13 +7,19 @@
 #include <cstring>
 
 using namespace std;
-Character::Character(const char _name[], int _health, int _attack, int _defense, int _speed, bool _isPlayer) {
+Character::Character(const char _name[], int _health, int _attack, int _defense, int _speed, bool _isPlayer, int _experience) {
     strcpy(name, _name);
     health = _health;
     attack = _attack;
     defense = _defense;
     speed = _speed;
     isPlayer = _isPlayer;
+    experience = _experience;
+
+}
+
+int Character::getExperience(){
+    return experience;
 }
 
 string Character::getName() {
@@ -41,6 +47,7 @@ void Character::doDefense() {
 string Character::toString() {
     string aux = "Name: ";
     aux.append("\nHealth: " + to_string(health) + "\nAttack: " + to_string(attack) + "\nDefense: " + to_string(defense) + "\nSpeed: " + to_string(speed));
+    return name;
 }
 
 bool Character::getIsPlayer() {
@@ -54,3 +61,4 @@ bool Character::flee(Character*target) {
     int chance = rand() % 100;
     return chance > 30;
 }
+
